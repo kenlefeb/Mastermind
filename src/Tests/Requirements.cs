@@ -1,6 +1,7 @@
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 using Xunit;
 using Xunit.Abstractions;
@@ -31,15 +32,17 @@ namespace Tests
         }
 
         [Fact]
-        public void InitializeGame_GeneratesRandomCode()
+        public void InitializeGame_GeneratesRelativelyRandomCode()
         {
+            const int total = 100;              // Use a test sample of 100 executions
+            const decimal threshold = 0.10M;    // Failure threshold of 10% duplicate codes
             var codes = new List<string>();
-            for (var count = 0; count < 100; count++)
+            for (var count = 0; count < total; count++)
             {
                 codes.Add(new GameState().Code);
             }
 
-            codes.HasDuplicates().Should().BeFalse();
+            codes.DuplicateCount().Should().BeLessThan((int)(total * threshold));
         }
 
         [Fact]
@@ -75,9 +78,14 @@ namespace Tests
 
     public class GameState
     {
+        private static Random _randomizer = new Random();
+
         public GameState()
         {
-            Code = "1234";
+            var builder = new StringBuilder(4);
+            for (var index = 0; index < 4; index++)
+                builder.Append(_randomizer.Next(1, 6));
+            Code = builder.ToString();
         }
         public string Code { get; }
     }
