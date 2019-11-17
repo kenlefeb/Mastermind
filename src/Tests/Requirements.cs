@@ -1,7 +1,7 @@
 using FluentAssertions;
+using Mastermind;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using Xunit;
 using Xunit.Abstractions;
@@ -78,34 +78,5 @@ namespace Tests
         {
             throw new NotImplementedException();
         }
-    }
-
-    public class GuessAnalyzer
-    {
-        private readonly string _code;
-
-        public GuessAnalyzer(string code)
-        {
-            _code = code;
-        }
-
-        public string Analyze(string guess)
-        {
-            return " 1  ";
-        }
-    }
-
-    public class GameState
-    {
-        private static Random _randomizer = new Random();
-
-        public GameState()
-        {
-            var builder = new StringBuilder(4);
-            for (var index = 0; index < 4; index++)
-                builder.Append(_randomizer.Next(1, 6));
-            Code = builder.ToString();
-        }
-        public string Code { get; }
     }
 }
