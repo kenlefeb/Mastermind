@@ -1,6 +1,5 @@
 using FluentAssertions;
 using Mastermind;
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Xunit;
@@ -11,11 +10,6 @@ namespace Tests
     [Trait("Category", "Unit")]
     public class Requirements : XunitLoggingBase
     {
-        //
-        //  Player enters a guess:
-        //  After 10 incorrect guesses, the player loses
-        //  At end of game, display message indicating whether they won or lost
-        //
 
         public Requirements(ITestOutputHelper output) : base(output) { }
 
@@ -69,6 +63,7 @@ namespace Tests
             actual.Should().Be(expected);
         }
 
+        //  After 10 incorrect guesses, the player loses
         [Fact]
         public void GuessCounter_EndsGameAfterTenIncorrectGuesses()
         {
@@ -83,10 +78,18 @@ namespace Tests
             actual.Should().Be("Sorry, you lose.");
         }
 
+        //  At end of game, display message indicating whether they won or lost
         [Fact]
         public void AnalyzeGuess_EndsGameIfAllDigitsAreCorrect()
         {
-            throw new NotImplementedException();
+            var state = new Game("1234");
+            WriteLine(state.Guess("1111"));
+            WriteLine(state.Guess("2222"));
+            WriteLine(state.Guess("3333"));
+            WriteLine(state.Guess("4444"));
+            var actual = state.Guess("1234");
+
+            actual.Should().Contain("Congratulations, you won!");
         }
     }
 }
