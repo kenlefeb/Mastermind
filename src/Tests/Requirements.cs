@@ -23,7 +23,7 @@ namespace Tests
         [Fact]
         public void InitializeGame_GeneratesValidCode()
         {
-            var state = new GameState();
+            var state = new Game();
             var expectation = new Regex(@"[1-6]{4}");
 
             expectation.IsMatch(state.Code).Should().BeTrue();
@@ -38,7 +38,7 @@ namespace Tests
             var codes = new List<string>();
             for (var count = 0; count < total; count++)
             {
-                codes.Add(new GameState().Code);
+                codes.Add(new Game().Code);
             }
 
             codes.DuplicateCount().Should().BeLessThan((int)(total * threshold));
@@ -72,7 +72,7 @@ namespace Tests
         [Fact]
         public void GuessCounter_EndsGameAfterTenIncorrectGuesses()
         {
-            var state = new GameState("0000");
+            var state = new Game("0000");
             for (var count = 0; count < 9; count++)
             {
                 WriteLine(state.Guess("1111"));

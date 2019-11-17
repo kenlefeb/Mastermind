@@ -3,12 +3,12 @@ using System.Text;
 
 namespace Mastermind
 {
-    public class GameState
+    public class Game
     {
         private static Random _randomizer = new Random();
         private GuessAnalyzer _analyzer;
 
-        public GameState()
+        public Game()
         {
             var builder = new StringBuilder(4);
             for (var index = 0; index < 4; index++)
@@ -17,7 +17,7 @@ namespace Mastermind
             _analyzer = new GuessAnalyzer(Code);
         }
 
-        public GameState(string code)
+        public Game(string code)
         {
             Code = code;
         }
