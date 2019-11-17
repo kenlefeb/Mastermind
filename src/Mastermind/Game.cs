@@ -27,6 +27,7 @@ namespace Mastermind
         }
 
         public string Code { get; set; }
+        public bool IsFinished { get; private set; }
 
         public string Guess(string guess)
         {
@@ -39,10 +40,16 @@ namespace Mastermind
             _turns.Add(turn);
 
             if (turn.Response == "++++")
+            {
+                IsFinished = true;
                 return $"Congratulations, you won!\n(in only {turn.Number} turns)";
+            }
 
             if (turn.Number > 9)
-                return "Sorry, you lose.";
+            {
+                IsFinished = true;
+                return $"Sorry, you lose.\n(the code was \"{Code}\")";
+            }
 
             return turn.Response;
         }

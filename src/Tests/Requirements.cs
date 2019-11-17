@@ -75,7 +75,7 @@ namespace Tests
 
             var actual = state.Guess("1111");
 
-            actual.Should().Be("Sorry, you lose.");
+            actual.Should().Contain("Sorry, you lose.");
         }
 
         //  At end of game, display message indicating whether they won or lost
